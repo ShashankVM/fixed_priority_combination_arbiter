@@ -1,3 +1,4 @@
+```
 ** Results:
 [fv_tb.inst1.VALID_REQ_1] always arbiter_sva(4).m >= 0 && arbiter_sva(4).m < arbiter_sva(4).NUM && $stable(arbiter_sva(4).m): ASSUMED
 [fv_tb.inst1.VALID_REQ_2] always arbiter_sva(4).n >= 0 && arbiter_sva(4).n < arbiter_sva(4).NUM && $stable(arbiter_sva(4).n): ASSUMED
@@ -284,4 +285,4 @@ Transition system state 0
   ebmc::$past2@1 = 0 (00000000000000000000000000000000)
   ebmc::$past3@1 = 0 (00000000000000000000000000000000)
   ebmc::$past4@1 = 0 (00000000000000000000000000000000)
-
+```
