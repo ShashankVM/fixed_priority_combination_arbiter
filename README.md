@@ -6,7 +6,7 @@
 
 **Results:**
 
-See RESULTS.md
+See [RESULTS](RESULTS.md)
 
 **Documentation:**
 
