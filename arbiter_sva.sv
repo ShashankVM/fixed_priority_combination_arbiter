@@ -1,6 +1,7 @@
-module arbiter_sva();
-  logic [3:0] req_i, gnt_o;
-  localparam int NUM = 4;
+module arbiter_sva #(
+  parameter NUM = 4
+);
+  logic [NUM-1:0] req_i, gnt_o;
 
   arbiter #(NUM) inst(.req_i(req_i), .gnt_o(gnt_o));
 
