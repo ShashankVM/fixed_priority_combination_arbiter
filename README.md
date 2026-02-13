@@ -1,7 +1,9 @@
 **Command:** 
+
   `ebmc --systemverilog --top arbiter_sva arbiter_sva.sv arbiter.sv --trace`
 
 **Output:**
+```
 Converting
 Type-checking Verilog::arbiter
 Synthesis Verilog::arbiter
@@ -137,6 +139,6 @@ Transition system state 0
   arbiter_sva.inst.i = 4 (00000000000000000000000000000100)
   ebmc::$past1@1 = 0 (00000000000000000000000000000000)
   ebmc::$past2@1 = 0 (00000000000000000000000000000000)
-
+```
 **Documentation:**
 
