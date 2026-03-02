@@ -7,7 +7,7 @@ module arbiter_breakout #(
   logic [NUM_PORTS-1:0]gnt;
   bit breakout;
   always_comb begin
-    gnt = 0;
+    gnt = '0;
     breakout = 0;
     for (int i = 0; i < NUM_PORTS; i++)
       if (!breakout) 
