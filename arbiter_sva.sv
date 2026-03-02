@@ -3,8 +3,12 @@ module arbiter_sva #(
 );
   logic [NUM-1:0] req_i, gnt_o;
 
-  arbiter #(NUM) inst(.req_i(req_i), .gnt_o(gnt_o));
-
+  
+   `ifdef MUTATION 
+      arbiter_breakout uut(.req_i(req_i), .gnt_o(gnt_o));
+    `else
+      arbiter_breakout #(NUM) inst(.req_i(req_i), .gnt_o(gnt_o));
+     `endif 
   // declare a clock for concurrent assertions
   logic clk;
   default clocking CLK @(posedge clk);
@@ -34,7 +38,23 @@ module arbiter_sva #(
   PRIORITY_CHECK_2: assert property ((m < n) && req_i[m] && req_i[n] && ($countones(req_i) == 2) |-> gnt_o[m]);
 
   // No grant without its request
-  assert property (gnt_o[m] |-> req_i[m]);
+  NO_GRANT_WITHOUT_REQUEST: assert property (gnt_o[m]) |-> req_i[m]);
+
+
+  // tool is not proving for all m, hence writing properties for each m for
+  // now 
+  `ifdef MUTATION
+  NO_GRANT_WITHOUT_REQUEST_3: assert property (gnt_o[3] |-> req_i[3]);
+
+  NO_GRANT_WITHOUT_REQUEST_2: assert property (gnt_o[2] |-> req_i[2]);
+
+  NO_GRANT_WITHOUT_REQUEST_1: assert property (gnt_o[1] |-> req_i[1]);
+  
+  NO_GRANT_WITHOUT_REQUEST_0: assert property (gnt_o[0] |-> req_i[0]);
+  `endif 
+
+  // No X on grants
+  NO_X_ON_GRANTS: assert property (^gnt_o !== 1'bx); // using because $isunknown not supported
 
   // Not more than 1 grant for any non-zero number of requests        
   ONE_HOT_ARBITER: assert property (req_i |-> $onehot(gnt_o));
