@@ -6,7 +6,7 @@ module arbiter #(
 );
   logic [NUM_PORTS-1:0]gnt;
   always_comb begin
-    gnt = 0;
+    gnt = '0;
     for (int i = 0; i < NUM_PORTS; i++)
        priority if (req_i[i]) begin
          gnt[i] = 1'b1;
