@@ -1,0 +1,42 @@
+[options]
+size 1000
+tags COVERED UNCOVERED NOCHANGE EQGAP 
+
+[script]
+plugin -i slang
+read_slang arbiter_breakout.sv --top arbiter_breakout
+prep -top arbiter_breakout
+
+[files]
+arbiter_breakout.sv
+
+[logic]
+tb_okay = (result("test_fpv") == "PASS")
+eq_okay = (result("test_eq") == "PASS")
+
+if tb_okay and not eq_okay:
+    tag("UNCOVERED")
+elif not tb_okay and not eq_okay:
+    tag("COVERED")
+elif tb_okay and eq_okay:
+    tag("NOCHANGE")
+elif not tb_okay and eq_okay:
+    tag("EQGAP")
+else:
+    assert 0
+
+[report]
+if tags("EQGAP"):
+    print("Found %d mutations exposing a formal equivalence gap!" % tags("EQGAP"))
+if tags("COVERED")+tags("UNCOVERED"):
+    print("Coverage: %.2f%%" % (100.0*tags("COVERED")/(tags("COVERED")+tags("UNCOVERED"))))
+
+[test test_fpv]
+expect PASS FAIL
+run bash $PRJDIR/test_fpv.sh
+
+[test test_eq]
+expect PASS FAIL
+run bash $PRJDIR/test_eq.sh
+
+
