@@ -3,7 +3,8 @@
 **Command:** 
 
 Formal Property Verification:
-  `ebmc --systemverilog --top fv_tb top.sv arbiter_sva.sv arbiter.sv --trace`
+
+`ebmc --systemverilog --top fv_tb top.sv arbiter_sva.sv arbiter.sv --trace`
 
 Mutation Coverage with Yosys:
 ```
