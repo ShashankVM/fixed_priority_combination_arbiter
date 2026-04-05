@@ -7,6 +7,9 @@ Formal Property Verification:
 `ebmc --systemverilog --top fv_tb top.sv arbiter_sva.sv arbiter.sv --trace`
 
 Mutation Coverage with Yosys:
+
+Note: The create_mutated.sh file was modified to use the `-attr2comment` flag.
+
 ```
 mcy init
 mcy run -j$(nproc)
