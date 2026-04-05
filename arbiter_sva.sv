@@ -5,9 +5,9 @@ module arbiter_sva #(
 
   
    `ifdef MUTATION 
-      arbiter_breakout uut(.req_i(req_i), .gnt_o(gnt_o));
+      arbiter uut(.req_i(req_i), .gnt_o(gnt_o));
     `else
-      arbiter_breakout #(NUM) inst(.req_i(req_i), .gnt_o(gnt_o));
+      arbiter #(NUM) inst(.req_i(req_i), .gnt_o(gnt_o));
      `endif 
   // declare a clock for concurrent assertions
   logic clk;
@@ -38,7 +38,7 @@ module arbiter_sva #(
   PRIORITY_CHECK_2: assert property ((m < n) && req_i[m] && req_i[n] && ($countones(req_i) == 2) |-> gnt_o[m]);
 
   // No grant without its request
-  NO_GRANT_WITHOUT_REQUEST: assert property (gnt_o[m]) |-> req_i[m]);
+  NO_GRANT_WITHOUT_REQUEST: assert property (gnt_o[m] |-> req_i[m]);
 
 
   // tool is not proving for all m, hence writing properties for each m for
@@ -57,7 +57,7 @@ module arbiter_sva #(
   NO_X_ON_GRANTS: assert property (^gnt_o !== 1'bx); // using because $isunknown not supported
 
   // Not more than 1 grant for any non-zero number of requests        
-  ONE_HOT_ARBITER: assert property (req_i |-> $onehot(gnt_o));
+  ONE_HOT_ARBITER: assert property (($countones(req_i) >= 1) |-> $onehot(gnt_o));
 
   // Cover highest priority request
   cover property (req_i[0]);

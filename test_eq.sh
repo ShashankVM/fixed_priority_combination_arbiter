@@ -12,9 +12,9 @@ yosys -ql mutate.log mutate.ys
 
 ## run formal equivalence check
 echo "plugin -i slang" > eqy.ys
-echo "read_slang ../../arbiter_breakout.sv --top arbiter_breakout" >> eqy.ys
+echo "read_slang ../../arbiter.sv --top arbiter" >> eqy.ys
 echo "read_json mutated.json" >> eqy.ys
-echo "miter -equiv -make_assert -make_outputs arbiter_breakout mutated miter" >> eqy.ys
+echo "miter -equiv -make_assert -make_outputs arbiter mutated miter" >> eqy.ys
 echo "flatten miter" >> eqy.ys
 echo "sat -verify -prove-asserts -show-inputs -show-outputs miter" >> eqy.ys
 yosys -ql eq.log eqy.ys 2>&1 | tee eq.out

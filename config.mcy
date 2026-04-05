@@ -4,11 +4,11 @@ tags COVERED UNCOVERED NOCHANGE EQGAP
 
 [script]
 plugin -i slang
-read_slang arbiter_breakout.sv --top arbiter_breakout
-prep -top arbiter_breakout
+read_slang arbiter.sv --top arbiter
+prep -top arbiter
 
 [files]
-arbiter_breakout.sv
+arbiter.sv
 
 [logic]
 tb_okay = (result("test_fpv") == "PASS")
