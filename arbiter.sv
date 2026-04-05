@@ -4,8 +4,9 @@ module arbiter #(
     input       wire[NUM_PORTS-1:0] req_i,
     output      wire[NUM_PORTS-1:0] gnt_o   // One-hot grant signal
 );
-  logic [NUM_PORTS-1:0] gnt;
+  logic [NUM_PORTS-1:0]gnt;
   always_comb begin
+    gnt = '0;
     for (int i = 0; i < NUM_PORTS; i++)
        priority if (req_i[i]) begin
          gnt[i] = 1'b1;
