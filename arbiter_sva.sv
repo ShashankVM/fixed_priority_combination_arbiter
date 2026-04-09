@@ -1,6 +1,8 @@
 module arbiter_sva #(
-  parameter NUM = 4
-);
+  parameter NUM = 4)(
+  // Declare 2 symbolic variables
+  input int m, n
+  );
   logic [NUM-1:0] req_i, gnt_o;
 
   
@@ -15,8 +17,6 @@ module arbiter_sva #(
   endclocking
    
 
-  // Declare 2 symbolic variables
-  int m, n;  
 
   VALID_REQ_1: assume property ((m >= 0) && (m < NUM) && $stable(m));
 
